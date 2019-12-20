@@ -1,0 +1,14 @@
+{
+  "development": {
+    "username": "xxaqedwpsqxdte",
+    "password": "51aa5763cd7727c5b39abbb198e2759ef4b1422be5692eed019a654aa2ee9dfb",
+    "database": "de5flio3sirrnq",
+    "port": "5432",
+    "host": "ec2-107-21-103-80.compute-1.amazonaws.com",
+    "dialect": "postgres",
+    "protocol": "postgres",
+    "dialectOptions": {
+      "ssl": true
+    }
+  }
+}
