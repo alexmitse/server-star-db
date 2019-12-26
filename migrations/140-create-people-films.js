@@ -1,27 +1,29 @@
 "use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("films_planets", {
+    return queryInterface.createTable("people_films", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      peopleId: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "people",
+          key: "id",
+          as: "peopleId"
+        }
+      },
       filmsId: {
         type: Sequelize.INTEGER,
         onDelete: "CASCADE",
         references: {
           model: "films",
-          key: "filmsId"
-        }
-      },
-      planetsId: {
-        type: Sequelize.INTEGER,
-        onDelete: "CASCADE",
-        references: {
-          model: "planets",
-          key: "planetsId"
+          key: "id",
+          as: "filmsId"
         }
       },
       createdAt: {
@@ -35,6 +37,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("films_planets");
+    return queryInterface.dropTable("people_films");
   }
 };

@@ -13,7 +13,8 @@ module.exports = {
         onDelete: "CASCADE",
         references: {
           model: "films",
-          key: "filmsId"
+          key: "id",
+          as: "filmsId"
         }
       },
       starshipsId: {

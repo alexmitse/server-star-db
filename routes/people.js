@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const service = new require("../service/service");
 
 /* GET users listing. */
 router.get("/", (req, res, next) => {
-  return res.status(200).json({
-    users: ["dsadas", "dsaasd"]
-  });
+  service.getPeople().then(res => console.log(JSON.stringify(res)));
 });
 
 module.exports = router;

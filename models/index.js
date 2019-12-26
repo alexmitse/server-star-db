@@ -7,9 +7,15 @@ const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.json")[env];
-const db = {};
+const people = require("./people");
+const planets = require("./planets");
 
-console.log(config);
+const db = {
+  // people: people,
+  // planets: planets
+};
+
+console.log("config");
 let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env.DATABASE_URL, config);
@@ -42,4 +48,5 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+module.exports = db;
 sequelize.close();

@@ -2,9 +2,18 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const db = require("./service/database");
+
+db.authenticate()
+  .then(() => {
+    console.log("Connection has been established successfully.");
+  })
+  .catch(err => {
+    console.error("Unable to connect to the database:", err);
+  });
 
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+const peopleRouter = require("./routes/people");
 
 const app = express();
 
@@ -25,6 +34,6 @@ app.use((req, res, next) => {
 });
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/people", peopleRouter);
 
 module.exports = app;
