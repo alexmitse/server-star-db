@@ -4,7 +4,10 @@ const service = new require("../service/service");
 
 /* GET users listing. */
 router.get("/", (req, res, next) => {
-  service.getPeople().then(res => console.log(JSON.stringify(res)));
+  service.getPeople().then(res => {
+    console.log(JSON.stringify(res));
+    return res.send(JSON.stringify(res));
+  });
 });
 
 module.exports = router;
