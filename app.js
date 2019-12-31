@@ -1,8 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const db = require("./service/database");
+const db = require("./database/database");
 
 db.authenticate()
   .then(() => {
@@ -14,6 +15,12 @@ db.authenticate()
 
 const indexRouter = require("./routes/index");
 const peopleRouter = require("./routes/people");
+const starshipsRouter = require("./routes/starships");
+const planetsRouter = require("./routes/planets");
+const speciesRouter = require("./routes/species");
+const vehiclesRouter = require("./routes/vehicles");
+const filmsRouter = require("./routes/films");
+const searchRouter = require("./routes/search");
 
 const app = express();
 
@@ -35,5 +42,11 @@ app.use((req, res, next) => {
 
 app.use("/", indexRouter);
 app.use("/people", peopleRouter);
+app.use("/starships", starshipsRouter);
+app.use("/vehicles", vehiclesRouter);
+app.use("/species", speciesRouter);
+app.use("/films", filmsRouter);
+app.use("/planets", planetsRouter);
+app.use("/search", searchRouter);
 
 module.exports = app;

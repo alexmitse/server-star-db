@@ -6,14 +6,14 @@ const service = new require("../service/service");
 router.get("/", (req, res, next) => {
   console.log(req.query);
   if (req.query) {
-    service.getPeople(req.query).then(responce => {
+    service.getFilms(req.query).then(responce => {
       return res.send(responce);
     });
   } else next();
 });
 router.get("/:id", (req, res, next) => {
   const parameters = req.params;
-  service.getPeople(parameters).then(responce => {
+  service.getFilms(parameters).then(responce => {
     return res.send(responce);
   });
 });

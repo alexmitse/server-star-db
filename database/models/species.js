@@ -1,5 +1,5 @@
 "use strict";
-const sequelize = require("../service/database");
+const sequelize = require("../database");
 const DataTypes = require("sequelize").DataTypes;
 
 const species = sequelize.define(
