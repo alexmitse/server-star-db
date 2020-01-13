@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const Op = Sequelize.Op;
+const sequelize = require("../database/database");
 const people = require("../database/models/people");
 const planets = require("../database/models/planets");
 const species = require("../database/models/species");
@@ -113,59 +113,11 @@ vehicles.belongsToMany(films, {
 module.exports = Service = {
   getPeople: function(query) {
     const parameters = query[Object.keys(query)];
-    if (
-      Object.keys(query).map(item => {
-        if (item === "page") return true;
-        else return false;
-      })[0]
-    ) {
+    if (query.page && !query.search) {
       return people.findAndCountAll({
         distinct: true,
         limit: 10,
         offset: parameters * 10 - 10,
-        attributes: ["id", "name", "height", "gender"],
-        include: [
-          {
-            attributes: ["id", "name"],
-            model: planets
-            // as: "planets"
-          },
-          {
-            attributes: ["id", "name"],
-            model: species,
-            as: "species"
-          },
-          {
-            attributes: ["id", "title"],
-            model: films,
-            as: "films",
-            through: { attributes: [] }
-          },
-          {
-            attributes: ["id", "name"],
-            model: vehicles,
-            as: "vehicles",
-            through: { attributes: [] }
-          },
-          {
-            attributes: ["id", "name"],
-            model: starships,
-            as: "starships",
-            through: { attributes: [] }
-          }
-        ]
-      });
-    }
-    if (
-      Object.keys(query).map(item => {
-        if (item === "search") return true;
-        else return false;
-      })[0]
-    ) {
-      return people.findAll({
-        where: { name: { [Sequelize.Op.substring]: `${query.search}` } },
-        limit: 10,
-        offset: 1 * 10 - 10,
         attributes: ["id", "name", "height", "gender"],
         include: [
           {
@@ -238,42 +190,11 @@ module.exports = Service = {
   },
   getPlanets: function(query) {
     const parameters = query[Object.keys(query)];
-    if (
-      Object.keys(query).map(item => {
-        if (item === "page") return true;
-        else return false;
-      })[0]
-    ) {
+    if (query.page && !query.search) {
       return planets.findAndCountAll({
         distinct: true,
         limit: 10,
         offset: parameters * 10 - 10,
-        attributes: ["id", "name", "climate", "population"],
-        include: [
-          {
-            attributes: ["id", "name"],
-            model: people
-            // as: "people"
-          },
-          {
-            attributes: ["id", "title"],
-            model: films,
-            as: "films",
-            through: { attributes: [] }
-          }
-        ]
-      });
-    }
-    if (
-      Object.keys(query).map(item => {
-        if (item === "search") return true;
-        else return false;
-      })[0]
-    ) {
-      return planets.findAll({
-        where: { name: { [Sequelize.Op.substring]: `${query.search}` } },
-        limit: 10,
-        offset: 1 * 10 - 10,
         attributes: ["id", "name", "climate", "population"],
         include: [
           {
@@ -312,43 +233,11 @@ module.exports = Service = {
   },
   getStarships: function(query) {
     const parameters = query[Object.keys(query)];
-    if (
-      Object.keys(query).map(item => {
-        if (item === "page") return true;
-        else return false;
-      })[0]
-    ) {
+    if (query.page && !query.search) {
       return starships.findAndCountAll({
         distinct: true,
         limit: 10,
         offset: parameters * 10 - 10,
-        attributes: ["id", "name", "model", "length"],
-        include: [
-          {
-            attributes: ["id", "name"],
-            model: people,
-            as: "people",
-            through: { attributes: [] }
-          },
-          {
-            attributes: ["id", "title"],
-            model: films,
-            as: "films",
-            through: { attributes: [] }
-          }
-        ]
-      });
-    }
-    if (
-      Object.keys(query).map(item => {
-        if (item === "search") return true;
-        else return false;
-      })[0]
-    ) {
-      return starships.findAll({
-        where: { name: { [Sequelize.Op.substring]: `${query.search}` } },
-        limit: 10,
-        offset: 1 * 10 - 10,
         attributes: ["id", "name", "model", "length"],
         include: [
           {
@@ -389,61 +278,11 @@ module.exports = Service = {
   },
   getFilms: function(query) {
     const parameters = query[Object.keys(query)];
-    if (
-      Object.keys(query).map(item => {
-        if (item === "page") return true;
-        else return false;
-      })[0]
-    ) {
+    if (query.page && !query.search) {
       return films.findAndCountAll({
         distinct: true,
         limit: 10,
         offset: parameters * 10 - 10,
-        attributes: ["id", "title", "director"],
-        include: [
-          {
-            attributes: ["id", "name"],
-            model: planets,
-            as: "planets",
-            through: { attributes: [] }
-          },
-          {
-            attributes: ["id", "name"],
-            model: species,
-            as: "species",
-            through: { attributes: [] }
-          },
-          {
-            attributes: ["id", "name"],
-            model: people,
-            as: "people",
-            through: { attributes: [] }
-          },
-          {
-            attributes: ["id", "name"],
-            model: vehicles,
-            as: "vehicles",
-            through: { attributes: [] }
-          },
-          {
-            attributes: ["id", "name"],
-            model: starships,
-            as: "starships",
-            through: { attributes: [] }
-          }
-        ]
-      });
-    }
-    if (
-      Object.keys(query).map(item => {
-        if (item === "search") return true;
-        else return false;
-      })[0]
-    ) {
-      return films.findAll({
-        where: { director: { [Sequelize.Op.substring]: `${query.search}` } },
-        limit: 10,
-        offset: 1 * 10 - 10,
         attributes: ["id", "title", "director"],
         include: [
           {
@@ -520,42 +359,11 @@ module.exports = Service = {
   },
   getSpecies: function(query) {
     const parameters = query[Object.keys(query)];
-    if (
-      Object.keys(query).map(item => {
-        if (item === "page") return true;
-        else return false;
-      })[0]
-    ) {
+    if (query.page && !query.search) {
       return species.findAndCountAll({
         distinct: true,
         limit: 10,
         offset: parameters * 10 - 10,
-        attributes: ["id", "name", "classification", "language"],
-        include: [
-          {
-            attributes: ["id", "title"],
-            model: films,
-            as: "films",
-            through: { attributes: [] }
-          },
-          {
-            attributes: ["id", "name"],
-            model: people,
-            as: "people"
-          }
-        ]
-      });
-    }
-    if (
-      Object.keys(query).map(item => {
-        if (item === "search") return true;
-        else return false;
-      })[0]
-    ) {
-      return species.findAll({
-        where: { name: { [Sequelize.Op.substring]: `${query.search}` } },
-        limit: 10,
-        offset: 1 * 10 - 10,
         attributes: ["id", "name", "classification", "language"],
         include: [
           {
@@ -594,43 +402,11 @@ module.exports = Service = {
   },
   getVehicles: function(query) {
     const parameters = query[Object.keys(query)];
-    if (
-      Object.keys(query).map(item => {
-        if (item === "page") return true;
-        else return false;
-      })[0]
-    ) {
+    if (query.page && !query.search) {
       return vehicles.findAndCountAll({
         distinct: true,
         limit: 10,
         offset: parameters * 10 - 10,
-        attributes: ["id", "name", "model", "length"],
-        include: [
-          {
-            attributes: ["id", "name"],
-            model: people,
-            as: "people",
-            through: { attributes: [] }
-          },
-          {
-            attributes: ["id", "title"],
-            model: films,
-            as: "films",
-            through: { attributes: [] }
-          }
-        ]
-      });
-    }
-    if (
-      Object.keys(query).map(item => {
-        if (item === "search") return true;
-        else return false;
-      })[0]
-    ) {
-      return vehicles.findAll({
-        where: { name: { [Sequelize.Op.substring]: `${query.search}` } },
-        limit: 10,
-        offset: 1 * 10 - 10,
         attributes: ["id", "name", "model", "length"],
         include: [
           {
@@ -668,5 +444,39 @@ module.exports = Service = {
         ]
       });
     }
+  },
+  getSearch: function(query) {
+    return sequelize.query(
+      `((SELECT DISTINCT people."name", people.id, 'people' AS tablename, count(*) over()
+      FROM people where name like :search_name )
+      union
+      (SELECT DISTINCT films.title, films.id, 'films' AS tablename, count(*) over()
+      FROM films where title like :search_name )
+      union
+      (SELECT DISTINCT planets."name", planets.id, 'planets' AS tablename, count(*) over()
+      FROM planets where name like :search_name )
+      union
+      (SELECT DISTINCT starships."name", starships.id, 'starships' AS tablename, count(*) over()
+      FROM starships where name like :search_name )
+      union
+      (SELECT DISTINCT species."name", species.id, 'species' AS tablename, count(*) over()
+      FROM species where name like :search_name )
+      union
+      (SELECT DISTINCT vehicles."name", vehicles.id, 'vehicles' AS tablename, count(*) over()
+      FROM vehicles where name like :search_name )) limit :limit offset :offset`,
+      {
+        replacements: {
+          search_name: `%${query.search}%`,
+          limit: 10,
+          offset: 10 * query.page - 10
+        },
+        model: people,
+        planets,
+        starships,
+        species,
+        vehicles,
+        films
+      }
+    );
   }
 };
