@@ -281,8 +281,7 @@ module.exports = Service = {
     if (query.page && !query.search) {
       return films.findAndCountAll({
         distinct: true,
-        limit: 10,
-        offset: parameters * 10 - 10,
+        limit: 7,
         attributes: ["id", "title", "director"],
         include: [
           {

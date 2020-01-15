@@ -4,9 +4,9 @@ const service = new require("../service/service");
 
 /* GET users listing. */
 router.get("/", (req, res, next) => {
-  console.log(req.query);
   if (req.query) {
     service.getFilms(req.query).then(responce => {
+      console.log(req.query);
       return res.send(responce);
     });
   } else next();
