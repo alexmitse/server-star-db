@@ -131,7 +131,7 @@ module.exports = Service = {
             as: "species"
           },
           {
-            attributes: ["id", "title"],
+            attributes: ["id", ["title", "name"]],
             model: films,
             as: "films",
             through: { attributes: [] }
@@ -167,7 +167,7 @@ module.exports = Service = {
             as: "species"
           },
           {
-            attributes: ["id", "title"],
+            attributes: ["id", ["title", "name"]],
             model: films,
             as: "films",
             through: { attributes: [] }
@@ -203,7 +203,7 @@ module.exports = Service = {
             // as: "people"
           },
           {
-            attributes: ["id", "title"],
+            attributes: ["id", ["title", "name"]],
             model: films,
             as: "films",
             through: { attributes: [] }
@@ -222,7 +222,7 @@ module.exports = Service = {
             // as: "people"
           },
           {
-            attributes: ["id", "title"],
+            attributes: ["id", ["title", "name"]],
             model: films,
             as: "films",
             through: { attributes: [] }
@@ -247,7 +247,7 @@ module.exports = Service = {
             through: { attributes: [] }
           },
           {
-            attributes: ["id", "title"],
+            attributes: ["id", ["title", "name"]],
             model: films,
             as: "films",
             through: { attributes: [] }
@@ -267,7 +267,7 @@ module.exports = Service = {
             through: { attributes: [] }
           },
           {
-            attributes: ["id", "title"],
+            attributes: ["id", ["title", "name"]],
             model: films,
             as: "films",
             through: { attributes: [] }
@@ -282,7 +282,7 @@ module.exports = Service = {
       return films.findAndCountAll({
         distinct: true,
         limit: 7,
-        attributes: ["id", "title", "director"],
+        attributes: ["id", ["title", "name"], "director"],
         include: [
           {
             attributes: ["id", "name"],
@@ -320,7 +320,7 @@ module.exports = Service = {
       return films.findAll({
         where: { id: parameters },
         limit: 1,
-        attributes: ["id", "title", "director"],
+        attributes: ["id", ["title", "name"], "director"],
         include: [
           {
             attributes: ["id", "name"],
@@ -366,7 +366,7 @@ module.exports = Service = {
         attributes: ["id", "name", "classification", "language"],
         include: [
           {
-            attributes: ["id", "title"],
+            attributes: ["id", ["title", "name"]],
             model: films,
             as: "films",
             through: { attributes: [] }
@@ -385,7 +385,7 @@ module.exports = Service = {
         attributes: ["id", "name", "classification", "language"],
         include: [
           {
-            attributes: ["id", "title"],
+            attributes: ["id", ["title", "name"]],
             model: films,
             as: "films",
             through: { attributes: [] }
@@ -415,7 +415,7 @@ module.exports = Service = {
             through: { attributes: [] }
           },
           {
-            attributes: ["id", "title"],
+            attributes: ["id", ["title", "name"]],
             model: films,
             as: "films",
             through: { attributes: [] }
@@ -435,7 +435,7 @@ module.exports = Service = {
             through: { attributes: [] }
           },
           {
-            attributes: ["id", "title"],
+            attributes: ["id", ["title", "name"]],
             model: films,
             as: "films",
             through: { attributes: [] }
